@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kalkulus</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!--Simple dropdown menu based on w3schools.org / css-js-dropdown -->
+<div class="simplemenu">
+    <button onclick="mobileMenuOpen()" class="dropbtn">Drop me down! FARIDMUZAFAR</button>
+
+    <ul id="gmDropdown" class="dropdown-content">
+      <li><a href="index.html">Home</a></a></li>
+      <li><a href="calkulator.html">Calculator</a></a></li>
+      <li><a href="calkulus.html">calkulus</a></li>
+     </ul>
+    </div>
+
+    <!-- <div class="has-support" data-support="css-trig-fns"><p>✅ Your browser supports the CSS Trigonometric Functions. Use the range slider to adjust the angle.</p></div> -->
+<div class="no-support" data-support="css-trig-fns">
+	<p>🚨 Your browser does not support the CSS Trigonometric Functions. Therefore, this demo will not work properly. Please try Safari 15.4, Firefox 108, or Chrome 111.</p>
+</div>
+<div>
+	<label>
+		<code>--radius</code> = <code>25vmin</code>
+	</label>
+	<label for="input">
+		<code>--angle</code> = <code><output data-for="angle">030</output>deg</code><br>
+		<input type="range" min="0" max="360" step="15" value="30" id="input" />
+	</label>
+</div>
+
+<div id="visual">
+	<!-- The dot -->
+	<span class="dot" data-show-when-has-support="css-trig-fns"></span>
+
+	<!-- The angle indicator -->
+	<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" data-show-when-has-support="css-trig-fns">
+		<circle cx="50" cy="50" r="45.5" stroke="#333" stroke-width="1" fill="transparent" />
+	</svg>
+</div>
+
+<details>
+	<summary>Debug</summary>
+	<dl>
+		<dt><code>--angle</code></dt>
+		<dd>= <code><output data-for="angle">0</output>deg</code></dd>
+		<dt><code>cos(--angle)</code></dt>
+		<dd>= <output data-for="cos">1.00</output></dd>
+		<dt><code>sin(--angle)</code></dt>
+		<dd>= <output data-for="sin">0.00</output></dd>
+		<dt><code>tan(--angle)</code></dt>
+		<dd>= <output data-for="tan">0.00</output></dd>
+		<dt><code>--radius</code></dt>
+		<dd>= <code>25vmin</code></dd>
+		<dt>Length of Hypothenuse <em>(yellow line)</em></dt>
+		<dd>= <code>--radius</code> = <code>25vmin</code></dd>
+		<dt>Length of adjacent side <em>(red line)</em></dt>
+		<dd>= hypothenuse * <code>cos(--angle)</code> = <code>25vmin</code> * <output data-for="cos">1.00</output> = <code><output data-for="adj">25</output>vmin</code></dd>
+		<dt>Lenght of opposite side <em>(blue line)</em></dt>
+		<dd>= hypothenuse * <code>sin(--angle)</code> = <code>25vmin</code> * <output data-for="sin">0.00</output> = <code><output data-for="opp">0</output>vmin</code></dd>
+		</dd>
+	</dl>
+</details>
+
+<footer>
+	<p>Demo for <a href="https://web.dev/css-trig-functions/" target="_top">https://web.dev/FARIDMUZAFAR//</a></p>
+</footer>
+
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,461 @@
+* {box-sizing: border-box;}
+
+.simplemenu {
+  background-color: rgba(55, 31, 193, 0.5);
+  position: relative;}
+
+.dropbtn {
+    background-color: #fbe6e6;
+    color: rgb(56, 81, 180);
+    padding: 1rem;
+    font-size: 1.5rem;
+    border: none;
+    cursor: pointer;
+    font-family: Baloo, sans-serif;    
+  }
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #cbd3d6;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+    list-style-type: none;
+    margin-top: 0;
+    padding-left: 0;
+}
+.dropdown-content a {
+    color: rgb(247, 100, 100);
+    padding: 0.8rem 1rem;
+    text-decoration: none;
+    display: block;
+    font-family: 'Open Sans', sans-serif;
+}
+.dropdown-content a:hover {background-color: #eeeded}
+
+.show {display: block;
+}
+
+body {
+    text-align: center;
+    background-color: #8f8ff1;
+    font-family: Trebuchet MS;
+  }
+  
+  h1 {
+    color: #fff;
+  }
+  
+  #output {
+    background-color: #000;
+    color: #fff;
+    width: 600px;
+    height: 80px;
+    font-size: 48px;
+    border-radius: 5px;
+    text-align: left;
+    padding: 0px 10px 0px 10px;
+    box-shadow: 0px 0px 30px -5px #fff;
+  }
+  
+  #buttons {
+    margin-top: 15px;
+  }
+  
+  .button {
+    color: #fff;
+    text-align: center;
+    line-height: 70px;
+    display: inline-block;
+    background-color: #595959;
+    border: 1px solid #33ccff;
+    height: 70px;
+    width: 100px;
+    font-size: 36px;
+    margin-right: -4.6px;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #0066ff;
+    box-shadow: 0px 0px 30px 0px #fff;
+  }
+  
+  .button:active {
+    background-color: #80b3ff;
+    box-shadow: 0px 0px 30px 0px #000;
+  }
+  
+  .number {
+    background-color: #404040;
+  }
+  
+  .number:active {
+    background-color: #80b3ff;
+    box-shadow: 0px 0px 30px 0px #000;
+  }
+  
+  #zero {
+    width: 200px;
+  }
+  
+  #decimal {
+    font-weight: bold;
+  }
+  
+  #equals {
+    background-color: #0066ff;
+  }
+  
+  #equals:hover {
+    background-color: #fff;
+    color: #000;
+    box-shadow: 0px 0px 30px -5px #fff;
+  }
+  
+  #backspace {
+    background-color: #333333;
+  }
+  
+  #backspace:hover {
+    background-color: #99003d;
+  }
+  
+  #backspace:active {
+    background-color: #ff4d94;
+    box-shadow: 0px 0px 30px 0px #000;
+  }
+  
+  #clear {
+    background-color: #262626;
+  }
+  
+  #clear:hover {
+    background-color: #cc0000;
+  }
+  
+  #clear:active {
+    background-color: #ff4d4d;
+    box-shadow: 0px 0px 30px 0px #000;
+  }
+  
+  #radians, #degrees {
+    width: 200px;
+  }
+  
+  #radians:hover {
+    background-color: #00b38f;
+  }
+  
+  #degrees:hover {
+    background-color: #00b38f;
+  }
+
+
+  @layer base, demosupport;
+
+/* Register --angle. That way we can transition and animate it 😎 */
+@property --angle {
+	syntax: '<angle>';
+	initial-value: 0deg;
+	inherits: true;
+}
+/* Initial value for browsers that don’t support @property */
+:root {
+	--angle: 0deg;
+}
+
+/* The visualization */
+#visual {
+	/* Dimensions of the visualization */
+	--radius: 25vmin;
+	--tracksize: 5vmin;
+
+	/* Make it a circle, based on the dimensions */
+	width: calc(var(--radius) * 2 + var(--tracksize));
+	aspect-ratio: 1;
+	border-radius: 50%;
+	border: var(--tracksize) solid #ccc;
+	
+	/* Some generic positioning stuff */
+	margin: 0 auto;
+	position: relative;
+
+	/* Transition the angle value when updating it */
+	transition: --angle 0.5s ease-in-out;
+}
+
+/* The black dot */
+.dot {
+	/* Make it a circle */
+	display: block;
+	width: var(--tracksize);
+	aspect-ratio: 1;
+	border-radius: 50%;
+	
+	/* Center it */
+	position: absolute;
+	left: calc(50% - (var(--tracksize) / 2));
+	top: calc(50% - (var(--tracksize) / 2));
+	
+	/* Color it */
+	background: #333;
+	border: 1px solid #333;
+	
+	/* Position around center of parent, by taking --angle into account */
+	translate: calc(cos(var(--angle)) * var(--radius))      /* Translation on X-axis */
+		       calc(sin(var(--angle) * -1) * var(--radius)) /* Translation on Y-axis */
+	;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@layer demosupport {
+	
+	@layer lines {
+		/* Lines: Shared styles */
+		#visual::before, #visual::after,
+		.dot::before, .dot::after {
+			content: '';
+			display: block;
+			position: absolute;
+			left: calc(50% - 1px);
+			top: calc(50% - 1px);
+			transform-origin: 1px 1px;
+			z-index: 3;
+		}
+		
+		/* Line: Adjacent side */
+		#visual::before {
+			background: red;
+			height: 2px;
+			width: var(--radius);
+			transform: scaleX(calc(cos(var(--angle)))); /* Adjust scale on X axis by taking the cos() into account */
+		}
+
+		/* Line: Opposite side */
+		#visual::after {
+			background: blue;
+			width: 2px;
+			height: var(--radius);
+			transform: translateX(calc(cos(var(--angle)) * var(--radius))) /* Translate entire line on the X-axis so that it draws at the outer edge of the red line */
+					   scaleY(calc(sin(var(--angle) * -1)))                /* Adjust scale on Y axis by taking the sin() into account */
+			;
+		}
+
+		/* Line: Hypothenuse */
+		.dot::before {
+			background: yellow;
+			width: var(--radius);
+			height: 2px;
+			transform: rotate(calc(var(--angle) * -1)) /* Counterrotate to angle the .dot is at */
+					   translate(-100%, -50%)          /* Move back so that it appears to start from center */
+			;
+		}
+
+		/* Line: Tangent */
+		.dot::after {
+			background: lime;
+			width: var(--radius);
+			height: 2px;
+			rotate: calc(90deg + var(--angle) * -1);
+			transform: scaleX(tan(var(--angle)));
+		}
+		
+	}
+	
+	@layer angledebugger {
+		@property --progress {
+			syntax: '<number>';
+			initial-value: 0;
+			inherits: true;
+		}
+		:root {
+			--progress: 0;
+		}
+
+		svg {
+			position: absolute;
+			inset: calc(var(--tracksize) * -1);
+			width: calc(100% + var(--tracksize) + var(--tracksize));
+			height: calc(100% + var(--tracksize) + var(--tracksize));
+			z-index: 1;
+			pointer-events: none;
+		}
+		circle {
+			--radius: 45.5; /* = attr(r) */
+			--circumference: calc(var(--radius) * 3.141526 * 2);
+			transform-origin: 50% 50%;
+			transform: scaleY(-1);
+			stroke-dasharray: var(--circumference);
+			stroke-dashoffset: calc(var(--circumference) - (var(--circumference) * var(--progress)));
+
+			/* Transition the progress value when updating it */
+			transition: --progress 0.5s ease-in-out;
+		}
+	}
+
+	/* Layout things specific to this demo */
+	@layer layout {
+		details {
+			position: absolute;
+			left: 0.5rem;
+			top: 0.5rem;
+			border: 0.1rem solid #ccc;
+			border-radius: 0.2rem;
+			padding: 1rem;
+			background: rgba(238, 120, 116, 0.88);
+		}
+
+		label {
+			text-align: center;
+			display: block;
+		}
+		
+		footer {
+			text-align: center;
+			font-style: italic;
+		}
+	}
+}
+
+/* Non-demo styles below */
+@layer base {
+	@layer reset {
+		* {
+			box-sizing: border-box;
+		}
+		body {
+			margin: 0;
+			padding: 0;
+		}
+		html, body {
+			min-height: 100%;
+		}
+	}
+	@layer layout {
+		html {
+			max-width: 84ch;
+			padding: 3rem 2rem;
+			margin: auto;
+		}
+		body {
+			display: grid;
+			place-content: safe center;
+			gap: 2rem;
+		}
+
+		html {
+			--font-sans: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+			--font-serif: ui-serif,serif;
+			--font-mono: Dank Mono,Operator Mono,Inconsolata,Fira Mono,ui-monospace,SF Mono,Monaco,Droid Sans Mono,Source Code Pro,monospace;
+		}
+		body {
+			font-family: var(--font-sans);
+		}
+		pre, code {
+			font-family: var(--font-mono);
+			font-size: 0.8rem;
+		}
+		input, button {
+			font-family: inherit;
+		}
+
+		a,
+		a:visited {
+			color: blue;
+		}
+		
+		h2 {
+			margin-top: 2em;
+		}
+
+		summary {
+			cursor: pointer;
+		}
+
+		dd + dt {
+			margin-top: 0.5em;
+		}
+	}
+	
+	@layer code {
+		pre {
+			border: 1px solid #dedede;
+			padding: 1em;
+			background: #f7f7f7;
+			font-family: "Courier 10 Pitch", Courier, monospace;
+			overflow-x: auto;
+			border-left: 0.4em solid cornflowerblue;
+			tab-size: 4;
+		}
+		
+		code:not(pre code), output:not(code:has(output) output) {
+			background: #f7f7f7;
+			border: 1px solid rgb(0 0 0 / 0.2);
+			padding: 0.1rem 0.3rem;
+			margin: 0.1rem 0;
+			border-radius: 0.2rem;
+			display: inline-block;
+		}
+	}
+
+	@layer support {
+		.no-support,
+		.has-support {
+			margin: 1em 0;
+			padding: 1em;
+			border: 1px solid #ccc;
+		}
+
+		.no-support {
+			background-color: #ff00002b;
+		}
+		.no-support[data-level="warn"] {
+			background-color: #ffff002b;
+		}
+		.has-support {
+			background-color: #00ff002b;
+		}
+		
+		.no-support, [data-show-when-no-support] {
+			display: block !important;
+		}
+		.has-support, [data-show-when-has-support] {
+			display: none !important;
+		}
+
+		:is(.has-support, .no-support) > :first-child {
+			margin-top: 0;
+		}
+		:is(.has-support, .no-support) > :last-child {
+			margin-bottom: 0;
+		}
+
+		@supports (transform: scaleX(cos(360deg))) {
+			.no-support[data-support="css-trig-fns"] {
+				display: none !important;
+			}
+			.has-support[data-support="css-trig-fns"], [data-show-when-has-support="css-trig-fns"] {
+				display: block !important;
+			}
+		}
+	}
+}

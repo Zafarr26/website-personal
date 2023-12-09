@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kalkulus</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!--Simple dropdown menu based on w3schools.org / css-js-dropdown -->
+<div class="simplemenu">
+    <button onclick="mobileMenuOpen()" class="dropbtn">Drop me down! FARIDMUZAFAR</button>
+
+    <ul id="gmDropdown" class="dropdown-content">
+      <li><a href="index.html">Home</a></a></li>
+      <li><a href="calkulator.html">Calculator</a></a></li>
+      <li><a href="calkulus.html">calkulus</a></li>
+     </ul>
+    </div>
+</section>
+
+<style>th, td {text-align:right;}</style>
+<a name="top"></a>
+<div class="container">
+<div class="row">
+	<div class="col-md-3">
+	<div class="well">
+		<h1> Hitung Kredit</h1>
+		  
+		  <label for="pv">Harga: </label><br>
+		  <input type="text" id="pv" class="text-right"><br><br>
+		  <label for="dp">Uang Muka: </label><br>
+		  <input type="text" id="dp" class="text-right">%<br>
+		  hint (persentase dari harga)<br><br>
+		  <label for="bunga">Bunga </label><br> 
+		  <input type="text" id="bunga" class="text-right">%<br><br>
+		  <button id="hitung"> Hitung</button>		
+	  
+		  <h3>UNIVERSITAS DIAN NUSATARA</h3>	
+		  <ul>
+		  <li><a href="#d5th">FARID MUZAFAR</a></li>
+		  <li><a href="#d10th">NIM 411212110</a></li>
+		  <li><a href="#d15th">Dosen : MASNIA, M.PD</a></li>
+		  <li><a href="#d15th">kalkulus</a></li>
+		  </ul>
+	</div>	  
+	</div>
+	<div class="col-md-9">
+		<h3>cicilan per bulan : </h3>
+		<table class="table">
+		  <thead>
+		  <tr><th>DP</th><th>KPR</th><th>Bunga</th><th>5 th</th><th>10 th</th><th>15 th</th></tr>
+		  </thead>
+		  <tbody>
+		  <tr><td id="dpr"><td id="kpr"></td><td id="rate"></td><td id="anu5"></td><td id="anu10"></td><td id="anu15"></td></tr>
+		  </tbody>
+		</table>		
+		
+		<a name="d5th"></a>
+		<div>
+		  <a href="#top">Back to Top</a> |
+		  <a href="#d5th">Detail 5 th</a> |
+		  <a href="#d10th">Detail 10 th</a> |
+		  <a href="#d15th">Detail 15 th</a>
+		</div>
+		<h3>Detail 5 th: </h3>
+		<table class="table">
+		  <thead>
+		  <tr><th>No</th><th>Bunga</th><th>Pokok</th><th>Angsuran</th><th>Sisa</th></tr>
+		  </thead>
+		  <tbody id="list5">
+	
+		  </tbody>
+		</table>	
+		
+		<a name="d10th"></a>		  
+		<div>
+		  <a href="#top">Back to Top</a> |
+		  <a href="#d5th">Detail 5 th</a> |
+		  <a href="#d10th">Detail 10 th</a> |
+		  <a href="#d15th">Detail 15 th</a>
+		</div>		
+		<h3>Detail 10 th: </h3>
+		<table class="table">
+		  <thead>
+		  <tr><th>No</th><th>Bunga</th><th>Pokok</th><th>Angsuran</th><th>Sisa</th></tr>
+		  </thead>
+		  <tbody id="list10">
+	
+		  </tbody>
+		</table>		
+		
+		<a name="d15th"></a>
+		<div>
+		  <a href="#top">Back to Top</a> |
+		  <a href="#d5th">Detail 5 th</a> |
+		  <a href="#d10th">Detail 10 th</a> |
+		  <a href="#d15th">Detail 15 th</a>
+		</div>
+		<h3>Detail 15 th: </h3>
+		<table class="table">
+		  <thead>
+		  <tr><th>No</th><th>Bunga</th><th>Pokok</th><th>Angsuran</th><th>Sisa</th></tr>
+		  </thead>
+		  <tbody id="list15">
+	
+		  </tbody>
+		</table>
+		
+	</div>
+</div>
+</div>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js'></script>
+
+<script>
+/*
+	hitung anuitas sederhana by juni fajar
+	buat tugas kul gundar
+*/
+
+function roundToTwo(num) {    
+    return +(Math.round(num + "e+2")  + "e-2");
+}
+
+function formatNum(out) {    
+     return Number(out.toFixed(2)).toLocaleString('id');
+}
+
+/*
+function hitungAnu(pv, dp, bunga, lama) {
+    return (pv-dp) * ((((bunga/100)/12) * Math.pow((1 + ((bunga/100)/12)) , (lama*12))) / (Math.pow(1 + ((bunga/100)/12) , (lama*12)) - 1));
+}*/
+  
+function hitungAnu(pv, dp, bunga, lama) {
+  //var pb = Math.pow(1 + bb , db); //pangkat bunga bulanan ke durasi dalam bulan
+  var bb = (bunga/100)/12; //bunga perbulan dalam %    
+  var db = lama*12; //durasi dalam bulan
+  var pb = (1 + bb) ** db; //bunga + 1 pangkat durasi
+  return (pv-dp) * ((bb * pb) / (pb - 1));
+}
+
+function cekParam(){
+	var pv = $('#pv').val();
+	var dp = $('#dp').val();
+	var bunga = $('#bunga').val();
+	if(pv=="" || dp=="" || bunga=="") 
+		return false
+	else
+		return true
+}
+
+function list_detail(pv, dp, bunga, lama) {
+	var bunga_bulan = (bunga/100)/12;
+	var angsuran = roundToTwo(hitungAnu(pv, dp, bunga, lama));
+	var sisa = pv - dp;
+	var bunga_i;
+	var pokok;
+	var sd = lama * 12;
+	var out = '';
+	for(i=0; i < sd ; i++) {
+	
+		bunga_i = roundToTwo(bunga_bulan * (sisa));
+		pokok = roundToTwo(angsuran - bunga_i);
+		
+		sisa = roundToTwo(sisa - pokok);
+		out += '<tr><td align="right">' + (i+1) + '</td><td align="right">' + formatNum(bunga_i) + '</td><td align="right">' + formatNum(pokok) +'</td><td align="right">' + formatNum(angsuran) + '</td><td align="right">' + formatNum(sisa) + '</td></tr>';
+ 		
+	}
+	return out;
+}
+
+$(function() {
+	$("#pv").maskMoney({thousands:'.', decimal:',', allowZero:false});
+	$("#dp").maskMoney({thousands:'.', decimal:',', allowZero:false});
+	$("#bunga").maskMoney({thousands:'.', decimal:',', allowZero:false});
+
+});
+
+$("#hitung").click(function(){
+	
+	var pvz = $("#pv").maskMoney('unmasked')[0];
+	var dpz = $("#dp").maskMoney('unmasked')[0];
+	dpz = ((dpz/100) * pvz);
+	var kpr = pvz - dpz;
+	var bungaz = $("#bunga").maskMoney('unmasked')[0];
+	
+	console.log(pv);
+	if(cekParam(pvz, dpz, bungaz)) {
+		
+		//kosongin template
+		$("#kpr").empty(); $("#dpr").empty();
+		$("#rate").empty(); $("#anu5").empty();
+		$("#anu10").empty(); $("#anu15").empty();
+		$("#list5").empty(); $("#list10").empty();	  
+		$("#list15").empty();
+			
+		$("#kpr").append(formatNum(kpr));
+		$("#rate").append(formatNum(bungaz) + '%'); 
+		$("#dpr").append(formatNum(dpz)); 
+		
+		$("#anu5").append(formatNum(hitungAnu(pvz, dpz, bungaz, 5)));
+		$("#list5").append(list_detail(pvz, dpz, bungaz, 5));
+		
+		$("#anu10").append(formatNum(hitungAnu(pvz, dpz, bungaz, 10)));
+		$("#list10").append(list_detail(pvz, dpz, bungaz, 10));
+		
+		$("#anu15").append(formatNum(hitungAnu(pvz, dpz, bungaz, 15)));
+		$("#list15").append(list_detail(pvz, dpz, bungaz, 15));
+	
+	} else {
+		alert('harap masukkan input dengan benar')
+	}
+  
+});
+</script>
+
+  <script src="script.js"></script>
+</body>
+</html>
